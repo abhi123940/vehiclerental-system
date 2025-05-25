@@ -1,0 +1,36 @@
+-- Create Database
+CREATE DATABASE VehicleRentalSystem;
+
+-- Use the Database
+USE VehicleRentalSystem;
+
+-- Table: Customers
+CREATE TABLE Customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(20),
+    address TEXT
+);
+
+-- Table: Vehicles
+CREATE TABLE Vehicles (
+    vehicle_id INT AUTO_INCREMENT PRIMARY KEY,
+    model VARCHAR(100),
+    type VARCHAR(50),  -- e.g., Car, Bike, Truck
+    number_plate VARCHAR(20) UNIQUE,
+    rent_per_day DECIMAL(10, 2),
+    available BOOLEAN DEFAULT TRUE
+);
+
+-- Table: Rentals
+CREATE TABLE Rentals (
+    rental_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    vehicle_id INT,
+    rent_date DATE,
+    return_date DATE,
+    total_amount DECIMAL(10, 2),
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+    FOREIGN KEY (vehicle_id) REFERENCES Vehicles(vehicle_id)
+)
